@@ -1,11 +1,13 @@
-import './App.css'
-import Task from "./Task"
-  function App() {
-    return (
-      <div className="App">
-        <Task />
-      </div>
-    );
-  }
+import './App.css';
+import TaskList from "./TaskList";
+import TaskApp from "./TaskApp";
 
-export default App
+function App() {
+  return (
+    <div className="App">
+      <TaskApp />
+      <TaskList tasks={[]}/>
+    </div>
+  );
+}
+export default App;
