@@ -34,7 +34,7 @@ class TaskApp extends React.Component<TaskAppProp, TaskAppState> {
           Graduation Final Year Project (Revamp college website)
         </h1>
         <div className="grid grid-cols-2 gap-4">
-          <div className="border border-slate-200 rounded-xl p-4">
+          <div className="border border-slate-200 rounded-xl p-4 bg-slate-400">
             <h1 className="text-slate-500 text-xl font-bold text-center mb-2">
               Pending
             </h1>
