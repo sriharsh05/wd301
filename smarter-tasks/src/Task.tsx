@@ -1,25 +1,28 @@
-import React from "react";
 import "./TaskCard.css";
-import { TaskItem } from "./types";
 
 interface TaskProp {
   title: string;
   dueDate: string;
   description: string;
+  deleteTask: () => void;
 }
 
-const Task = (props: TaskItem) => {
+const Task = (props: TaskProp) => {
   return (
     <div className="TaskItem shadow-md border border-stone-700 max-w-sm rounded overflow-hidden">
-      <h2 className="text-base font-bold my-1 text-white">
-        {props.title}
-      </h2>
+      <h2 className="text-base font-bold my-1 text-white">{props.title}</h2>
       <p className="text-sm text-white">
         Due Date: <span>{props.dueDate}</span>
       </p>
       <p className="text-sm text-white">
         Description: <span>{props.description}</span>
       </p>
+      <button
+        className="deleteTaskButton m-2 p-2 bg-sky-300 hover:bg-sky-600 rounded-lg"
+        onClick={props.deleteTask}
+      >
+        Delete
+      </button>
     </div>
   );
 };

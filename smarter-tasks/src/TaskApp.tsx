@@ -1,7 +1,7 @@
-import React from "react";
 import { TaskItem } from "./types";
 import TaskForm from "./TaskForm";
 import TaskList from "./TaskList";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 
 interface TaskAppProp {}
 
@@ -10,17 +10,27 @@ interface TaskAppState {
 }
 
 const TaskApp = () => {
-  const [taskAppState, setTaskAppState] = React.useState<TaskAppState>({
-    tasks: [],
-  });
+  const [taskAppState, setTaskAppState] = useLocalStorage<TaskAppState>(
+    "tasks",
+    {
+      tasks: [],
+    }
+  );
+
   const addTask = (task: TaskItem) => {
     setTaskAppState({ tasks: [...taskAppState.tasks, task] });
   };
+
+  function handleDelete(idx: number): void {
+    const updatedTasks = taskAppState.tasks.filter(
+      (task, index) => index !== idx
+    );
+    setTaskAppState({ tasks: updatedTasks });
+  }
+
   return (
     <div className="container py-10 max-w-4xl mx-auto">
-      <h1 className="text-3xl mb-2 font-bold text-slate-700">
-        Smarter Tasks
-      </h1>
+      <h1 className="text-3xl mb-2 font-bold text-slate-700">Smarter Tasks</h1>
       <h1 className="text-lg mb-6 text-slate-600">
         <span className="font-bold">Project: </span>
         Graduation Final Year Project (Revamp college website)
@@ -31,7 +41,10 @@ const TaskApp = () => {
             Pending
           </h1>
           <TaskForm addTask={addTask} />
-          <TaskList tasks={taskAppState.tasks} />
+          <TaskList
+            tasks={taskAppState.tasks}
+            handleDeleteTask={(idx) => handleDelete(idx)}
+          />
         </div>
       </div>
     </div>
