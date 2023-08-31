@@ -6,7 +6,7 @@ interface Props {
   handleDeleteTask: (id: number) => void;
 }
 
-interface State {}
+// interface State {}
 
 const TaskList = (props: Props) => {
   const list = props.tasks.map((task, idx) => (

@@ -3,7 +3,7 @@ import TaskForm from "./TaskForm";
 import TaskList from "./TaskList";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 
-interface TaskAppProp {}
+// interface TaskAppProp {}
 
 interface TaskAppState {
   tasks: TaskItem[];
@@ -23,7 +23,7 @@ const TaskApp = () => {
 
   function handleDelete(idx: number): void {
     const updatedTasks = taskAppState.tasks.filter(
-      (task, index) => index !== idx
+      (_, index) => index !== idx
     );
     setTaskAppState({ tasks: updatedTasks });
   }
