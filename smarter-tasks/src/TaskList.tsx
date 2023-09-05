@@ -12,10 +12,8 @@ const TaskList = (props: Props) => {
   const list = props.tasks.map((task, idx) => (
     <Task
       key={idx}
-      title={task.title}
-      description={task.description}
-      dueDate={task.dueDate}
-      deleteTask={() => props.handleDeleteTask(idx)}
+      item={task}
+      removeTask={() => props.handleDeleteTask(idx)}
     />
   ));
   return <>{list}</>;
