@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { API_ENDPOINT } from '../../config/constants';
+import { useNavigate } from "react-router-dom";
+
 
 const Signin: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -25,7 +28,7 @@ const Signin: React.FC = () => {
       // After successful signin, first we will save the token in localStorage
       localStorage.setItem('authToken', data.token);
       localStorage.setItem('userData', JSON.stringify(data.user));
-
+      navigate("/dashboard");
       
       // After successful signin we have to redirect the user to the secured page. We will do that later.
 
