@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { API_ENDPOINT } from '../../config/constants';
+import { useNavigate } from "react-router-dom";
 
 
 const SignupForm: React.FC = () => {
@@ -7,6 +8,8 @@ const SignupForm: React.FC = () => {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
+  const navigate = useNavigate();
+
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -25,8 +28,8 @@ const SignupForm: React.FC = () => {
       const data = await response.json();
 
     localStorage.setItem('authToken', data.token);
-    // if successful, save the user info in localStorage
     localStorage.setItem('userData', JSON.stringify(data.user))
+    navigate("/account");
     } catch (error) {
       console.error('Sign-up failed:', error);
     }
