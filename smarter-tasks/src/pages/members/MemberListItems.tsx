@@ -24,10 +24,10 @@ export default function MemberListItems() {
       {members.map((member: any) => (
         <div
           key={member.id}
-          className="suspense-loading member block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+          className="block p-6 bg-gray-200 border border-gray-400 rounded-lg shadow hover:bg-gray-300"
         >
           <div className="flex justify-between items-center">
-            <h5 className="mb-1 text-xl font-medium tracking-tight text-gray-900 dark:text-white">
+            <h5 className="mb-1 text-xl font-medium tracking-tight text-gray-900">
               {member.name}
             </h5>
             <button onClick={() => deleteMember(dispatchMembers, member.id)}>
@@ -47,7 +47,7 @@ export default function MemberListItems() {
               </svg>
             </button>
           </div>
-          <p className="mb-2 text-lg font-medium tracking-tight text-gray-400 dark:text-white">
+          <p className="mb-2 text-lg font-medium tracking-tight text-gray-600">
             {member.email}
           </p>
         </div>
