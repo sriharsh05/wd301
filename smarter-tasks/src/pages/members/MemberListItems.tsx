@@ -29,6 +29,7 @@ export default function MemberListItems() {
           <h5 className="mb-2 text-xl font-medium tracking-tight text-gray-900 dark:text-white">
             {member.name}
           </h5>
+          <p className="text-gray-900">{member.email}</p>
           <button onClick={() => deleteMember(dispatchMembers, member.id)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
