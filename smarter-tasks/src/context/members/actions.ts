@@ -42,7 +42,7 @@ export const addMember = async (dispatch: any, args: any) => {
       return { ok: false, error: data.errors[0].message };
     }
 
-    dispatch({ type: "ADD_MEMBER_SUCCESS", payload: data });
+    dispatch({ type: "ADD_MEMBER_SUCCESS", payload: data.user });
     return { ok: true };
   } catch (error) {
     console.error("Operation failed:", error);
