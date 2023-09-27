@@ -21,6 +21,7 @@ interface Project {
   | { type: 'FETCH_PROJECTS_REQUEST' }
   | { type: 'FETCH_PROJECTS_SUCCESS'; payload: Project[] }
   | { type: 'FETCH_PROJECTS_FAILURE'; payload: string }
+  | { type: 'ADD_PROJECT_SUCCESS'; payload: Project }
 
 export const reducer = (state: ProjectsState = initialState, action: ProjectsActions): ProjectsState => {  switch (action.type) {
     case "FETCH_PROJECTS_REQUEST":
@@ -40,7 +41,9 @@ export const reducer = (state: ProjectsState = initialState, action: ProjectsAct
         isLoading: false,
         isError: true, 
         errorMessage: action.payload
-      };           
+      };  
+      case 'ADD_PROJECT_SUCCESS':
+        return { ...state, projects: [...state.projects, action.payload] };         
     default:
       return state;
   }
