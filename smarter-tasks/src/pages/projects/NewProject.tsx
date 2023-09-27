@@ -9,7 +9,6 @@ type Inputs = {
 
 const NewProject = () => {
   let [isOpen, setIsOpen] = useState(false);
-  const [name, setName] = useState("");
   const {
     register,
     handleSubmit,
