@@ -43,3 +43,39 @@ export const addTask = async (
 export const reorderTasks = (dispatch: TasksDispatch, newState: ProjectData)  => {
   dispatch({type: TaskListAvailableAction.REORDER_TASKS, payload: newState})
 }
+
+export const refreshTasks = async (
+  dispatch: TasksDispatch,
+  projectID: string
+) => {
+  const token = localStorage.getItem("authToken") ?? "";
+  try {
+    dispatch({ type: TaskListAvailableAction.FETCH_TASKS_REQUEST });
+    const response = await fetch(
+      `${API_ENDPOINT}/projects/${projectID}/tasks`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch tasks");
+    }
+
+    const data = await response.json();
+    dispatch({
+      type: TaskListAvailableAction.FETCH_TASKS_SUCCESS,
+      payload: data,
+    });
+    console.dir(data);
+  } catch (error) {
+    console.error("Operation failed:", error);
+    dispatch({
+      type: TaskListAvailableAction.FETCH_TASKS_FAILURE,
+      payload: "Unable to load tasks",
+    });
+  }
+};
