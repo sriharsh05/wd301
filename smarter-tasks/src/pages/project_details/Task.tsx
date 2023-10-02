@@ -5,7 +5,6 @@ import { Link, useParams } from "react-router-dom";
 import { deleteTask } from "../../context/task/actions";
 import { useTasksDispatch } from "../../context/task/context";
 
-
 const Task = forwardRef<
   HTMLDivElement,
   React.PropsWithChildren<{ task: TaskDetails }>
@@ -27,6 +26,9 @@ const Task = forwardRef<
             </p>
             <p className="text-sm text-slate-500">
               Description: {task.description}
+            </p>
+            <p className="text-sm text-slate-500">
+              Assignee: {task.assignedUserName ?? "-"}
             </p>
           </div>
           <button
