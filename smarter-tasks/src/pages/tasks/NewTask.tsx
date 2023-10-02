@@ -13,16 +13,14 @@ const NewTask = () => {
   let { projectID } = useParams();
   let navigate = useNavigate();
 
-  // Use react-hook-form to create form submission handler and state.
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    // formState: { errors },
   } = useForm<TaskDetailsPayload>();
   const projectState = useProjectsState();
   const taskDispatch = useTasksDispatch();
 
-  // We do some sanity checks to make sure the `projectID` passed is a valid one
   const selectedProject = projectState?.projects.filter(
     (project) => `${project.id}` === projectID
   )?.[0];
@@ -35,7 +33,6 @@ const NewTask = () => {
   }
   const onSubmit: SubmitHandler<TaskDetailsPayload> = async (data) => {
     try {
-      // Invoke the actual API and create a task.
       addTask(taskDispatch, projectID ?? "", data);
       closeModal();
     } catch (error) {
