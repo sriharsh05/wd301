@@ -1,9 +1,10 @@
-// import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useTasksState } from "../../context/task/context";
+import DragDropList from "./DragDropList";
 import { useProjectsState } from "../../context/projects/context";
 
-
 const ProjectDetails = () => {
+  const tasksState = useTasksState();
   const projectState = useProjectsState();
   let { projectID } = useParams();
 
@@ -13,6 +14,10 @@ const ProjectDetails = () => {
 
   if (!selectedProject) {
     return <>No such Project!</>;
+  }
+
+  if (tasksState.isLoading) {
+    return <>Loading...</>;
   }
   return (
     <>
@@ -28,6 +33,9 @@ const ProjectDetails = () => {
             New Task
           </button>
         </Link>
+      </div>
+      <div className="grid grid-cols-1 gap-2">
+        <DragDropList data={tasksState.projectData} />
       </div>
     </>
   );
