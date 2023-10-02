@@ -1,6 +1,7 @@
 import { API_ENDPOINT } from "../../config/constants";
 import {
   ProjectData,
+  TaskDetails,
   TaskDetailsPayload,
   TaskListAvailableAction,
   TasksDispatch,
@@ -14,7 +15,6 @@ export const addTask = async (
   const token = localStorage.getItem("authToken") ?? "";
   try {
     dispatch({ type: TaskListAvailableAction.CREATE_TASK_REQUEST });
-
     const response = await fetch(
       `${API_ENDPOINT}/projects/${projectID}/tasks/`,
       {
@@ -31,6 +31,7 @@ export const addTask = async (
       throw new Error("Failed to create task");
     }
     dispatch({ type: TaskListAvailableAction.CREATE_TASK_SUCCESS });
+    refreshTasks(dispatch, projectID);
   } catch (error) {
     console.error("Operation failed:", error);
     dispatch({
@@ -76,6 +77,40 @@ export const refreshTasks = async (
     dispatch({
       type: TaskListAvailableAction.FETCH_TASKS_FAILURE,
       payload: "Unable to load tasks",
+    });
+  }
+};
+
+export const deleteTask = async (
+  dispatch: TasksDispatch,
+  projectID: string,
+  task: TaskDetails
+) => {
+  const token = localStorage.getItem("authToken") ?? "";
+  try {
+    dispatch({ type: TaskListAvailableAction.DELETE_TASKS_REQUEST });
+    const response = await fetch(
+      `${API_ENDPOINT}/projects/${projectID}/tasks/${task.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(task),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to delete task");
+    }
+    dispatch({ type: TaskListAvailableAction.DELETE_TASKS_SUCCESS });
+    refreshTasks(dispatch, projectID);
+  } catch (error) {
+    console.error("Operation failed:", error);
+    dispatch({
+      type: TaskListAvailableAction.DELETE_TASKS_FAILURE,
+      payload: "Unable to delete task",
     });
   }
 };
