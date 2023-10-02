@@ -36,27 +36,20 @@ export default function Comments() {
   }, [taskID, projectID, commentDispatch]);
 
   if (comments.length === 0 && isLoading) {
-    return <p className="mt-3 font-bold text-gray-500">Loading...</p>;
+    return <p className="mt-3 text-gray-600 font-bold">Loading...</p>;
   }
 
   if (isError) {
-    return <p className="mt-3 text-pink-500">{errorMessage}</p>;
+    return <p className="mt-3 text-red-500">{errorMessage}</p>;
   }
 
-  const retriveComment = (owner: any) => {
-    const assignee = memberState?.members?.filter(
-      (member) => member.id === owner
-    )?.[0];
-    return assignee?.name;
-  };
-
-  const FormatedTimeDate = (date: string) => {
+  const timeFormattingHandler = (date: string) => {
     const newDate = new Date(date);
     const formatDate = newDate.toDateString();
     let hours = newDate.getHours();
     let minutes = newDate.getMinutes();
+    
     const newformat = hours >= 12 ? "PM" : "AM";
-
     hours = hours % 12;
     hours = hours ? hours : 12;
 
@@ -65,6 +58,13 @@ export default function Comments() {
     } ${newformat}`;
 
     return `${formatDate} ${formatedTime}`;
+  };
+
+  const getComment = (owner: any) => {
+    const assignee = memberState?.members?.filter(
+      (member) => member.id === owner
+    )?.[0];
+    return assignee?.name;
   };
 
   return (
@@ -96,10 +96,10 @@ export default function Comments() {
             <div className="comment my-2 rounded-lg bg-gray-200 px-3 py-2">
               <div className="flex justify-between">
                 <h2 className="font-semibold">
-                  Member : {retriveComment(comment.owner)}
+                  Member : {getComment(comment.owner)}
                 </h2>
                 <p className="text-sm font-semibold">
-                  {FormatedTimeDate(comment.createdAt)}
+                  {timeFormattingHandler(comment.createdAt)}
                 </p>
               </div>
               <p>{comment.description}</p>
