@@ -24,7 +24,7 @@ export default function MemberListItems() {
       {members.map((member: any) => (
         <div
           key={member.id}
-          className="block p-6 bg-gray-200 border border-gray-400 rounded-lg shadow hover:bg-gray-300"
+          className="suspense-loading block p-6 bg-gray-200 border border-gray-400 rounded-lg shadow hover:bg-gray-300"
         >
           <div className="flex justify-between items-center">
             <h5 className="mb-1 text-xl font-medium tracking-tight text-gray-900">
